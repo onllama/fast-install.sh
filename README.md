@@ -8,4 +8,4 @@ This script installs Ollama, with mirror.
 curl -fsSL https://fastly.jsdelivr.net/gh/onllama/fast-install.sh/install.sh | sh
 ```
 
-[Donate to GitMirror](https://www.7ed.net/donate.html)
+[Donate to GitMirror](https://www.7ed.net/donate.html) / [wget.la](https://wget.la)

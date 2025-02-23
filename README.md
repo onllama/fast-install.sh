@@ -5,7 +5,7 @@ This script installs Ollama, with mirror.
 
 ### Linux
 ```
-curl -fsSL https://fastly.jsdelivr.net/gh/onllama/fast-install.sh/fast-install.sh | sh
+curl -fsSL https://git.apad.pro/https://raw.githubusercontent.com/onllama/fast-install.sh/refs/heads/main/fast-install.sh | sh
 ```
 
 [Donate to GitMirror](https://www.7ed.net/donate.html) / [apad.pro](https://apad.pro/)

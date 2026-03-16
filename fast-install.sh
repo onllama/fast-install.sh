@@ -4,6 +4,8 @@
 
 set -eu
 
+M_VER="v0.18.0"
+
 red="$( (/usr/bin/tput bold || :; /usr/bin/tput setaf 1 || :) 2>&-)"
 plain="$( (/usr/bin/tput sgr0 || :) 2>&-)"
 
@@ -80,7 +82,7 @@ $SUDO install -o0 -g0 -m755 -d $BINDIR
 $SUDO install -o0 -g0 -m755 -d "$OLLAMA_INSTALL_DIR"
 status "Downloading Linux ${ARCH} bundle"
 curl --fail --show-error --location --progress-bar \
-    "https://gh-proxy.com/github.com/ollama/ollama/releases/latest/download/ollama-linux-${ARCH}.tgz${VER_PARAM}" | \
+    "https://gh-proxy.com/github.com/ollama/ollama/releases/${M_VER}/download/ollama-linux-${ARCH}.tgz" | \
     $SUDO tar -xzf - -C "$OLLAMA_INSTALL_DIR"
 if [ "$OLLAMA_INSTALL_DIR/bin/ollama" != "$BINDIR/ollama" ] ; then
     status "Making ollama accessible in the PATH in $BINDIR"
@@ -92,12 +94,12 @@ if [ -f /etc/nv_tegra_release ] ; then
     if grep R36 /etc/nv_tegra_release > /dev/null ; then
         status "Downloading JetPack 6 components"
         curl --fail --show-error --location --progress-bar \
-            "https://gh-proxy.com/github.com/ollama/ollama/releases/latest/download/ollama-linux-${ARCH}-jetpack6.tgz${VER_PARAM}" | \
+            "https://gh-proxy.com/github.com/ollama/ollama/releases/${M_VER}/download/ollama-linux-${ARCH}-jetpack6.tgz" | \
             $SUDO tar -xzf - -C "$OLLAMA_INSTALL_DIR"
     elif grep R35 /etc/nv_tegra_release > /dev/null ; then
         status "Downloading JetPack 5 components"
         curl --fail --show-error --location --progress-bar \
-            "https://gh-proxy.com/github.com/ollama/ollama/releases/latest/download/ollama-linux-${ARCH}-jetpack5.tgz${VER_PARAM}" | \
+            "https://gh-proxy.com/github.com/ollama/ollama/releases/${M_VER}/download/ollama-linux-${ARCH}-jetpack5.tgz" | \
             $SUDO tar -xzf - -C "$OLLAMA_INSTALL_DIR"
     else
         warning "Unsupported JetPack version detected.  GPU may not be supported"
@@ -223,7 +225,7 @@ fi
 if check_gpu lspci amdgpu || check_gpu lshw amdgpu; then
     status "Downloading Linux ROCm ${ARCH} bundle"
     curl --fail --show-error --location --progress-bar \
-        "https://gh-proxy.com/github.com/ollama/ollama/releases/latest/download/ollama-linux-${ARCH}-rocm.tgz${VER_PARAM}" | \
+        "https://gh-proxy.com/github.com/ollama/ollama/releases/${M_VER}/download/ollama-linux-${ARCH}-rocm.tgz${VER_PARAM}" | \
         $SUDO tar -xzf - -C "$OLLAMA_INSTALL_DIR"
 
     install_success

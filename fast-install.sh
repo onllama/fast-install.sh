@@ -81,9 +81,9 @@ status "Installing ollama to $OLLAMA_INSTALL_DIR"
 $SUDO install -o0 -g0 -m755 -d $BINDIR
 $SUDO install -o0 -g0 -m755 -d "$OLLAMA_INSTALL_DIR"
 status "Downloading Linux ${ARCH} bundle"
-wget \
+curl --fail --show-error --location --progress-bar \
     "https://cdn.gh-proxy.org/github.com/ollama/ollama/releases/download/${M_VER}/ollama-linux-${ARCH}.tar.zst" | \
-    $SUDO tar -I zstd -xzf - -C "$OLLAMA_INSTALL_DIR"
+    $SUDO tar -I zstd -xvf - -C "$OLLAMA_INSTALL_DIR"
 if [ "$OLLAMA_INSTALL_DIR/bin/ollama" != "$BINDIR/ollama" ] ; then
     status "Making ollama accessible in the PATH in $BINDIR"
     $SUDO ln -sf "$OLLAMA_INSTALL_DIR/ollama" "$BINDIR/ollama"
@@ -95,12 +95,12 @@ if [ -f /etc/nv_tegra_release ] ; then
         status "Downloading JetPack 6 components"
         curl --fail --show-error --location --progress-bar \
             "https://cdn.gh-proxy.org/github.com/ollama/ollama/releases/download/${M_VER}/ollama-linux-${ARCH}-jetpack6.tar.zst" | \
-            $SUDO tar -I zstd -xzf - -C "$OLLAMA_INSTALL_DIR"
+            $SUDO tar -I zstd -xvf - -C "$OLLAMA_INSTALL_DIR"
     elif grep R35 /etc/nv_tegra_release > /dev/null ; then
         status "Downloading JetPack 5 components"
         curl --fail --show-error --location --progress-bar \
             "https://cdn.gh-proxy.org/github.com/ollama/ollama/releases/download/${M_VER}/ollama-linux-${ARCH}-jetpack5.tar.zst" | \
-            $SUDO tar -I zstd -xzf - -C "$OLLAMA_INSTALL_DIR"
+            $SUDO tar -I zstd -xvf - -C "$OLLAMA_INSTALL_DIR"
     else
         warning "Unsupported JetPack version detected.  GPU may not be supported"
     fi
@@ -226,7 +226,7 @@ if check_gpu lspci amdgpu || check_gpu lshw amdgpu; then
     status "Downloading Linux ROCm ${ARCH} bundle"
     curl --fail --show-error --location --progress-bar \
         "https://cdn.gh-proxy.org/github.com/ollama/ollama/releases/download/${M_VER}/ollama-linux-${ARCH}-rocm.tar.zst" | \
-        $SUDO tar -I zstd -xzf - -C "$OLLAMA_INSTALL_DIR"
+        $SUDO tar -I zstd -xvf - -C "$OLLAMA_INSTALL_DIR"
 
     install_success
     status "AMD GPU ready."

@@ -5,7 +5,7 @@
 set -eu
 
 M_VER="v0.32.0"
-M_FAST="cdn.gh-proxy.org"
+M_FAST="gh-proxy.org"
 
 red="$( (/usr/bin/tput bold || :; /usr/bin/tput setaf 1 || :) 2>&-)"
 plain="$( (/usr/bin/tput sgr0 || :) 2>&-)"
